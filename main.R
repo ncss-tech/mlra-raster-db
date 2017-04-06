@@ -19,13 +19,16 @@ library(reshape2)
 # source('extract-nlcd.R')
 
 ### load cached data and combine
-load('E:/gis_data/MLRA/E:/gis_data/MLRA/rda/samples.rda')
+load('E:/gis_data/MLRA/rda/samples.rda')
 
 ## create table of MLRA code + 800m stack
-load('E:/gis_data/MLRA/E:/gis_data/MLRA/rda/prism-samples.rda')
+load('E:/gis_data/MLRA/rda/prism-samples.rda')
 
 # row-order is preserved, combine columns
 mlra.prism.data <- data.frame(mlra=s$mlra, e, stringsAsFactors = FALSE)
+# keep original names, broken by line above
+names(mlra.prism.data) <- c('mlra', dimnames(e)[[2]])
+
 save(mlra.prism.data, file='E:/gis_data/MLRA/db/mlra-prism-data.rda')
 rm(e, mlra.prism.data)
 gc(reset = TRUE)

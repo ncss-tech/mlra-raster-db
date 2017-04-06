@@ -19,6 +19,9 @@ load('E:/gis_data/MLRA/rda/samples.rda')
 # extract: 26 seconds
 system.time(e <- extract(rs, s))
 
+# set better names
+dimnames(e)[[2]] <- c('Elevation (m)', 'Effective Precipitation (mm)', 'Frost-Free Days', 'Mean Annual Air Temperature (degrees C)', 'Mean Annual Precipitation (mm)', 'Growing Degree Days (degrees C)', 'Fraction of Annual PPT as Rain')
+
 # save for later
 save(e, file='E:/gis_data/MLRA/rda/prism-samples.rda')
 
