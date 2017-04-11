@@ -13,3 +13,10 @@
  2. 30m geomorphon proportions
  3. 30m NLCD (2011) proportions
  
+## Get Latest MLRA Raster Sample Database
+The following 3 commands will download the three raster sample databases to your home directory. Adjust `destfile` paths as needed. The files should be placed in the MLRA Summary report folder.
+```r
+download.file('https://github.com/ncss-tech/mlra-raster-db/raw/master/rda-files/mlra-geomorphons-data.rda', destfile='~/mlra-geomorphons-data.rda')
+download.file('https://github.com/ncss-tech/mlra-raster-db/raw/master/rda-files/mlra-nlcd-data.rda', destfile='~/mlra-nlcd-data.rda')
+download.file('https://github.com/ncss-tech/mlra-raster-db/raw/master/rda-files/mlra-prism-data.rda', destfile='~/mlra-prism-data.rda')
+```
