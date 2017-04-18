@@ -12,6 +12,10 @@
     + fraction of annual PPT as rain
  2. 30m geomorphon proportions
  3. 30m NLCD (2011) proportions
+ 4. 800m CONUS SSURGO | STATSGO:
+    + CEC 0-25cm
+    + plant available water storage 0-25cm
+    + pH 0-25cm
  
 ## Get Latest MLRA Raster Sample Database
 The following 3 commands will download the three raster sample databases to your home directory. Adjust `destfile` paths as needed. The files should be placed in the MLRA Summary report folder.
