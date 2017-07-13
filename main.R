@@ -12,6 +12,9 @@ library(reshape2)
 ## extract 800m PRISM stack
 # source('extract-800m-PRISM.R')
 
+## extract NAMRAD stack
+# source('extract-namrad.R')
+
 ## extract 800m SSURGO/STATSGO stack
 # source('extract-800m-soil.R')
 
@@ -23,6 +26,18 @@ library(reshape2)
 
 ### load cached data and combine
 load('E:/gis_data/MLRA/rda/samples.rda')
+
+## create table of MLRA code + 800m soil stack
+load('E:/gis_data/MLRA/rda/namrad-samples.rda')
+
+# row-order is preserved, combine columns
+mlra.namrad.data <- data.frame(mlra=s$mlra, e, stringsAsFactors = FALSE)
+# keep original names, broken by line above
+names(mlra.namrad.data) <- c('mlra', dimnames(e)[[2]])
+
+save(mlra.namrad.data, file='E:/gis_data/MLRA/db/mlra-namrad-data.rda')
+rm(e, mlra.namrad.data)
+gc(reset = TRUE)
 
 ## create table of MLRA code + 800m soil stack
 load('E:/gis_data/MLRA/rda/soil-properties-samples.rda')
@@ -37,7 +52,7 @@ rm(e, mlra.soil.data)
 gc(reset = TRUE)
 
 
-## create table of MLRA code + 800m stack
+## create table of MLRA code + PRISM stack
 load('E:/gis_data/MLRA/rda/prism-samples.rda')
 
 # row-order is preserved, combine columns
