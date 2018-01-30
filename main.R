@@ -24,10 +24,29 @@ library(reshape2)
 ## extract 30m NLCD
 # source('extract-nlcd.R')
 
+## extract 1km 2015 population count
+# source('extract-2015-population-count.R')
+
+
 ### load cached data and combine
 load('E:/gis_data/MLRA/rda/samples.rda')
 
-## create table of MLRA code + 800m soil stack
+
+## create table of MLRA code + 2015 population count
+load('E:/gis_data/MLRA/rda/pop2015-samples.rda')
+
+# row-order is preserved, combine columns
+mlra.pop2015.data <- data.frame(mlra=s$mlra, e, stringsAsFactors = FALSE)
+# keep original names, broken by line above
+names(mlra.pop2015.data) <- c('mlra', 'pop2015')
+
+save(mlra.pop2015.data, file='E:/gis_data/MLRA/db/mlra-pop2015-data.rda')
+rm(e, mlra.pop2015.data)
+gc(reset = TRUE)
+
+
+
+## create table of MLRA code + NAMRAD stack
 load('E:/gis_data/MLRA/rda/namrad-samples.rda')
 
 # row-order is preserved, combine columns
@@ -38,6 +57,7 @@ names(mlra.namrad.data) <- c('mlra', dimnames(e)[[2]])
 save(mlra.namrad.data, file='E:/gis_data/MLRA/db/mlra-namrad-data.rda')
 rm(e, mlra.namrad.data)
 gc(reset = TRUE)
+
 
 ## create table of MLRA code + 800m soil stack
 load('E:/gis_data/MLRA/rda/soil-properties-samples.rda')
