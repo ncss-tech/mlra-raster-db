@@ -84,6 +84,7 @@ save(mlra.prism.data, file='E:/gis_data/MLRA/db/mlra-prism-data.rda')
 rm(e, mlra.prism.data)
 gc(reset = TRUE)
 
+
 ## create table of MLRA code + geomorphon proportions
 load('E:/gis_data/MLRA/rda/geomorphons-samples.rda')
 
