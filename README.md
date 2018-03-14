@@ -50,7 +50,7 @@ destfile='MLRA-comparison/mlra-pop2015-data.rda')
 ## Spatial Neighborhood Information
 Details pending.
 
-![alt text][figures/mlra-spatial-neighbors.png]
+![spatial neighbors](figures/mlra-spatial-neighbors.png)
 
 
 
