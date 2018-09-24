@@ -12,6 +12,9 @@ library(reshape2)
 ## extract 800m PRISM stack
 # source('extract-800m-PRISM.R')
 
+## extract monthly 800m PRISM stack
+# source('extract-monthly-PRISM.R')
+
 ## extract NAMRAD stack
 # source('extract-namrad.R')
 
@@ -83,6 +86,33 @@ names(mlra.prism.data) <- c('mlra', dimnames(e)[[2]])
 save(mlra.prism.data, file='E:/gis_data/MLRA/db/mlra-prism-data.rda')
 rm(e, mlra.prism.data)
 gc(reset = TRUE)
+
+
+## create table of MLRA code + monthly PET (PRISM) stack
+load('E:/gis_data/MLRA/rda/prism-monthly-pet-samples.rda')
+
+# row-order is preserved, combine columns
+pet.prism.data <- data.frame(mlra=s$mlra, e.pet, stringsAsFactors = FALSE)
+# keep original names, broken by line above
+names(pet.prism.data) <- c('mlra', dimnames(e.pet)[[2]])
+
+save(pet.prism.data, file='E:/gis_data/MLRA/db/mlra-monthly-pet-data.rda')
+rm(e.pet, pet.prism.data)
+gc(reset = TRUE)
+
+
+## create table of MLRA code + monthly PPT (PRISM) stack
+load('E:/gis_data/MLRA/rda/prism-monthly-ppt-samples.rda')
+
+# row-order is preserved, combine columns
+ppt.prism.data <- data.frame(mlra=s$mlra, e.ppt, stringsAsFactors = FALSE)
+# keep original names, broken by line above
+names(ppt.prism.data) <- c('mlra', dimnames(e.ppt)[[2]])
+
+save(ppt.prism.data, file='E:/gis_data/MLRA/db/mlra-monthly-ppt-data.rda')
+rm(e.ppt, ppt.prism.data)
+gc(reset = TRUE)
+
 
 
 ## create table of MLRA code + geomorphon proportions
