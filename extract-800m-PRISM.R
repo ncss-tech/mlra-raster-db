@@ -17,7 +17,9 @@ names(rs) <- c('prism_elev','eff.ppt','ffd','maat','map','gdd','rain.fraction', 
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
-# extract: 27 seconds
+# extract: 27 seconds from disk
+# ~ 2 seconds from RAM
+rs <- readAll(rs)
 system.time(e <- extract(rs, s))
 
 # set better names

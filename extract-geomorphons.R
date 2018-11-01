@@ -2,8 +2,8 @@ library(raster)
 library(rgdal)
 library(sp)
 
-# current batch of 800m PRISM data
-r <- raster('E:/gis_data/CONUS-forms-DEB.tif')
+# 30m geomorphons
+r <- raster('E:/gis_data/CONUS/CONUS-forms-DEB.tif')
 names(r) <- c('geomorphons')
 
 # pre-made sampling points

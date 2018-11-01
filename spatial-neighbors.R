@@ -70,3 +70,17 @@ p$adjMat['18', ]
 save(p, file='rda-files/mlra-adjacency.rda')
 
 
+## join groups to spatial data
+d <- data.frame(MLRASYM=V(g)$name, cluster=V(g)$cluster, stringsAsFactors = FALSE)
+
+mlra$cluster <- d$cluster[match(mlra$MLRARSYM, d$MLRASYM)]
+
+
+# hmmm ?
+
+library(sf)
+
+mlra <- st_as_sf(mlra)
+
+plot(mlra[, 'cluster'])
+
