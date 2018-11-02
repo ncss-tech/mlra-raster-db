@@ -5,6 +5,8 @@ library(sp)
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
+## TODO: extract from rasters in memory as with standard prism stack
+
 # monthly data
 
 # PPT (mm)
