@@ -17,3 +17,14 @@ save(s, file='E:/gis_data/MLRA/rda/samples.rda')
 
 rm(mlra, s)
 gc()
+
+## TODO:
+
+# HI
+
+# AK
+
+# PR
+
+
+# Pac Basin?
