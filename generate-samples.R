@@ -7,6 +7,7 @@ mlra <- readOGR(dsn='E:/gis_data/MLRA', layer='conus-mlra-v42', stringsAsFactors
 mlra$pID <- 1:nrow(mlra)
 
 # sample all CONUS polygons
+# ~ 7.5 minutes no AMP
 system.time(s <- constantDensitySampling(mlra, n.pts.per.ac=0.0005))
 nrow(s)
 

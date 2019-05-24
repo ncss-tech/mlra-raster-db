@@ -12,7 +12,8 @@ names(rs) <- c('CEC_025','PAWS_025','pH_025')
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
-# extract: 10 seconds
+# extract: 
+# 10 seconds no AMP
 system.time(e <- extract(rs, s))
 
 # set better names

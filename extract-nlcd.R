@@ -9,7 +9,9 @@ names(r) <- c('nlcd')
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
-# extract: 14 minutes
+# extract: 
+# ~ 14 minutes windows 7
+# > 18 minutes no AMP
 system.time(e <- extract(r, s))
 
 # save for later

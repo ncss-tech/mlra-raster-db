@@ -9,7 +9,9 @@ names(r) <- c('geomorphons')
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
-# extract: 12 minutes
+# extract from disk
+# ~ 12 minutes (windows 7)
+# ~ 20 minutes no AMP
 system.time(e <- extract(r, s))
 
 # save for later
