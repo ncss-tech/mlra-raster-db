@@ -19,11 +19,14 @@ load('E:/gis_data/MLRA/rda/samples.rda')
 
 
 # ~ 9 seconds no AMP
-rs <- readAll(rs)
+# ~ 9 seconds with AMP + process-exclusions
+system.time(rs <- readAll(rs))
 
 # extract
 # ~ 22 seconds from disk no AMP
+# ~ 22 seconds from disk with AMP + process-exclusions
 # ~ 1.3 seconds from RAM no AMP
+# ~ 1.3 seconds from RAM with AMP + process-exclusions
 system.time(e <- extract(rs, s))
 
 # set better names

@@ -8,6 +8,7 @@ mlra$pID <- 1:nrow(mlra)
 
 # sample all CONUS polygons
 # ~ 7.5 minutes no AMP
+# ~ 7.5 minutes with AMP + process-exclusions
 system.time(s <- constantDensitySampling(mlra, n.pts.per.ac=0.0005))
 nrow(s)
 

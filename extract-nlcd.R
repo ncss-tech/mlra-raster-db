@@ -9,9 +9,12 @@ names(r) <- c('nlcd')
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
+## not possible: file is too large
+# system.time(r <- readAll(r))
+
 # extract: 
 # ~ 14 minutes windows 7
-# > 18 minutes no AMP
+# ~ 20 minutes from disk with AMP + process-exclusions
 system.time(e <- extract(r, s))
 
 # save for later

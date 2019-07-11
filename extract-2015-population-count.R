@@ -9,7 +9,9 @@ names(r) <- c('pop2015')
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
-# extract: 1.5 minutes
+# extract
+# 1.5 minutes (settings?)
+# ~ 119 seconds from disk with AMP + process-exclusions
 system.time(e <- extract(r, s))
 
 # save for later

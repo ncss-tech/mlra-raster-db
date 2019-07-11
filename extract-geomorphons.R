@@ -12,6 +12,7 @@ load('E:/gis_data/MLRA/rda/samples.rda')
 # extract from disk
 # ~ 12 minutes (windows 7)
 # ~ 20 minutes no AMP
+# ~ 17 minutes from disk with AMP + process-exclusions
 system.time(e <- extract(r, s))
 
 # save for later
