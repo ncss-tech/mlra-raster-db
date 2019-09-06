@@ -13,15 +13,14 @@ load('E:/gis_data/MLRA/rda/samples.rda')
 ppt <- brick('E:/gis_data/prism/final_monthly_ppt_800m.tif')
 names(ppt) <- paste('ppt.', 1:12, sep = '')
 
-# PET (mm * 100)
+# PET (mm)
 pet <- brick('E:/gis_data/prism/final_monthly_pet_800m.tif')
-# convert to mm
-pet <- pet / 100.0
 names(pet) <- paste('pet.', 1:12, sep = '')
 
 # work from memory
-# ~ 16 seconds with AMP + process-exclusions
+# ~ 16 seconds each with AMP + process-exclusions
 system.time(ppt <- readAll(ppt))
+system.time(pet <- readAll(pet))
 
 # extract
 # ~ 27 seconds (Windows 7)
