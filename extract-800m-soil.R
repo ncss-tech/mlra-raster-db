@@ -13,8 +13,7 @@ names(rs) <- c('CEC_025','PAWS_025','pH_025')
 load('E:/gis_data/MLRA/rda/samples.rda')
 
 # extract: 
-# 10 seconds no AMP
-# ~ 10 seconds from disk with AMP + process-exclusions
+# ~ 10 seconds | 2021, WD
 system.time(e <- extract(rs, s))
 
 # set better names
