@@ -18,17 +18,15 @@ pet <- brick('E:/gis_data/prism/final_monthly_pet_800m.tif')
 names(pet) <- paste('pet.', 1:12, sep = '')
 
 # work from memory
-# ~ 16 seconds each with AMP + process-exclusions
+# ~ 18-21 seconds | 2021, WD
 system.time(ppt <- readAll(ppt))
 system.time(pet <- readAll(pet))
 
 # extract
-# ~ 27 seconds (Windows 7)
-# ~ 223 seconds from disk with AMP + process-exclusions
-# ~ 1.2 seconds from disk with AMP + process-exclusions
+# ~ 1.9 seconds | 2021, WD
 system.time(e.ppt <- extract(ppt, s))
 
-# 1.5 seconds from RAM with AMP + process-exclusions
+# ~ 1.9 seconds | 2021, WD
 system.time(e.pet <- extract(pet, s))
 
 # save for later

@@ -18,15 +18,11 @@ names(rs) <- c('prism_elev','eff.ppt','ffd','maat','map','gdd','rain.fraction', 
 load('E:/gis_data/MLRA/rda/samples.rda')
 
 
-# ~ 9 seconds no AMP
-# ~ 9 seconds with AMP + process-exclusions
+# ~ 8 seconds | 2021, WD
 system.time(rs <- readAll(rs))
 
 # extract
-# ~ 22 seconds from disk no AMP
-# ~ 22 seconds from disk with AMP + process-exclusions
-# ~ 1.3 seconds from RAM no AMP
-# ~ 1.3 seconds from RAM with AMP + process-exclusions
+# ~ 1.97 seconds | 2021, WD
 system.time(e <- extract(rs, s))
 
 # set better names

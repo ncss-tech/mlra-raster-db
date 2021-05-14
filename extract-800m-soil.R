@@ -3,9 +3,9 @@ library(rgdal)
 library(sp)
 
 # current batch of 800m SoilWeb SSURGO-STATSGO properties
-rs <- stack('E:/gis_data/FY2018-800m-rasters/cec_025.tif', 
-            'E:/gis_data/FY2018-800m-rasters/paws_025.tif', 
-            'E:/gis_data/FY2018-800m-rasters/ph_025.tif'
+rs <- stack('E:/gis_data/FY2021-800m-rasters/rasters/cec_025.tif', 
+            'E:/gis_data/FY2021-800m-rasters/rasters/paws_025.tif', 
+            'E:/gis_data/FY2021-800m-rasters/rasters/ph_025.tif'
             )
 names(rs) <- c('CEC_025','PAWS_025','pH_025')
 

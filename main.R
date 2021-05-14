@@ -4,6 +4,12 @@ library(raster)
 library(plyr)
 library(reshape2)
 
+## TODO:
+# * convert all raster code -> terra
+# * use writeRDS() / readRDS()
+# *
+
+
 ### pre-cache samples and extracted values
 
 ## generate samples, save as SPDF

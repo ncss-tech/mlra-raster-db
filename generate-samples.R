@@ -7,8 +7,7 @@ mlra <- readOGR(dsn='E:/gis_data/MLRA', layer='conus-mlra-v42', stringsAsFactors
 mlra$pID <- 1:nrow(mlra)
 
 # sample all CONUS polygons
-# ~ 7.5 minutes no AMP
-# ~ 7.5 minutes with AMP + process-exclusions
+# ~ 7.9 minutes | 2021, WD 
 system.time(s <- constantDensitySampling(mlra, n.pts.per.ac=0.0005))
 nrow(s)
 
@@ -22,11 +21,10 @@ gc()
 
 ## TODO:
 
-# HI
+# HI / Pacific Islands
 
 # AK
 
 # PR
 
 
-# Pac Basin?

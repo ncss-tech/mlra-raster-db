@@ -12,7 +12,8 @@ names(rs) <- c('exp','K','Th','U')
 # pre-made sampling points
 load('E:/gis_data/MLRA/rda/samples.rda')
 
-# extract: 11 seconds
+# extract:
+# ~ 12 seconds | 2021, WD
 system.time(e <- extract(rs, s))
 
 # set better names
