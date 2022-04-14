@@ -19,6 +19,7 @@ names(pet) <- paste('pet.', 1:12, sep = '')
 
 # work from memory
 # ~ 18-21 seconds | 2021, WD
+# ~ 18 seconds | 2022, WD exclusions
 system.time(ppt <- readAll(ppt))
 system.time(pet <- readAll(pet))
 
