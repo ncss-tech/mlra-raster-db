@@ -38,7 +38,7 @@ library(reshape2)
 
 
 ### load cached data and combine
-load('E:/gis_data/MLRA/rda/samples.rda')
+s <- readRDS('E:/gis_data/MLRA/rda/samples.rds')
 
 
 ## create table of MLRA code + 2015 population count
