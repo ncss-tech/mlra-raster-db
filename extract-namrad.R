@@ -23,5 +23,5 @@ dimnames(e)[[2]] <- c('Exp', 'Potasium', 'Thorium', 'Uranium')
 save(e, file='E:/gis_data/MLRA/rda/namrad-samples.rda')
 
 rm(s, e, rs)
-gc()
+gc(reset = TRUE)
 

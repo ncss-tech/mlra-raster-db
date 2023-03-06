@@ -23,5 +23,5 @@ dimnames(e)[[2]] <- c('CEC at pH 7: 0-25cm', 'Plant Available Water Storage (cm)
 save(e, file='E:/gis_data/MLRA/rda/soil-properties-samples.rda')
 
 rm(s, e, rs)
-gc()
+gc(reset = TRUE)
 

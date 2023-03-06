@@ -18,7 +18,7 @@ s <- readRDS('E:/gis_data/MLRA/rda/samples.rds')
 system.time(e <- extract(r, s)$geomorphons)
 
 # save for later
-saveRDS(e, file='E:/gis_data/MLRA/rda/geomorphons-samples.rds')
+saveRDS(e, file = 'E:/gis_data/MLRA/rda/geomorphons-samples.rds')
 
 rm(s, e, r)
-gc()
+gc(reset = TRUE)
