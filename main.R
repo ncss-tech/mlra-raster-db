@@ -1,11 +1,7 @@
-library(sp)
-library(rgdal)
-library(raster)
-library(plyr)
+library(terra)
 library(reshape2)
 
 ## TODO:
-# * convert all raster code -> terra
 # * use writeRDS() / readRDS()
 # *
 
@@ -38,14 +34,17 @@ library(reshape2)
 
 
 ### load cached data and combine
+
+# pre-made sampling points EPSG:5070
+# spatVector
 s <- readRDS('E:/gis_data/MLRA/rda/samples.rds')
 
-
 ## create table of MLRA code + 2015 population count
-load('E:/gis_data/MLRA/rda/pop2015-samples.rda')
+e <- readRDS('E:/gis_data/MLRA/rda/pop2015-samples.rds')
 
 # row-order is preserved, combine columns
-mlra.pop2015.data <- data.frame(mlra=s$mlra, e, stringsAsFactors = FALSE)
+mlra.pop2015.data <- data.frame(mlra = s$mlra, e)
+
 # keep original names, broken by line above
 names(mlra.pop2015.data) <- c('mlra', 'pop2015')
 
@@ -56,23 +55,22 @@ gc(reset = TRUE)
 
 
 ## create table of MLRA code + NAMRAD stack
-load('E:/gis_data/MLRA/rda/namrad-samples.rda')
+e <- readRDS('E:/gis_data/MLRA/rda/namrad-samples.rds')
 
 # row-order is preserved, combine columns
-mlra.namrad.data <- data.frame(mlra=s$mlra, e, stringsAsFactors = FALSE)
-# keep original names, broken by line above
-names(mlra.namrad.data) <- c('mlra', dimnames(e)[[2]])
+mlra.namrad.data <- data.frame(mlra = s$mlra, e)
 
-save(mlra.namrad.data, file='E:/gis_data/MLRA/db/mlra-namrad-data.rda')
+save(mlra.namrad.data, file = 'E:/gis_data/MLRA/db/mlra-namrad-data.rda')
 rm(e, mlra.namrad.data)
 gc(reset = TRUE)
 
 
 ## create table of MLRA code + 800m soil stack
-load('E:/gis_data/MLRA/rda/soil-properties-samples.rda')
+e <- readRDS('E:/gis_data/MLRA/rda/soil-properties-samples.rds')
 
 # row-order is preserved, combine columns
-mlra.soil.data <- data.frame(mlra=s$mlra, e, stringsAsFactors = FALSE)
+mlra.soil.data <- data.frame(mlra = s$mlra, e)
+
 # keep original names, broken by line above
 names(mlra.soil.data) <- c('mlra', dimnames(e)[[2]])
 
@@ -82,12 +80,12 @@ gc(reset = TRUE)
 
 
 ## create table of MLRA code + PRISM stack
-load('E:/gis_data/MLRA/rda/prism-samples.rda')
+e <- readRDS('E:/gis_data/MLRA/rda/prism-samples.rds')
 
 # row-order is preserved, combine columns
-mlra.prism.data <- data.frame(mlra=s$mlra, e, stringsAsFactors = FALSE)
+mlra.prism.data <- data.frame(mlra = s$mlra, e)
 # keep original names, broken by line above
-names(mlra.prism.data) <- c('mlra', dimnames(e)[[2]])
+names(mlra.prism.data) <- c('mlra', names(e))
 
 save(mlra.prism.data, file='E:/gis_data/MLRA/db/mlra-prism-data.rda')
 rm(e, mlra.prism.data)
@@ -95,25 +93,25 @@ gc(reset = TRUE)
 
 
 ## create table of MLRA code + monthly PET (PRISM) stack
-load('E:/gis_data/MLRA/rda/prism-monthly-pet-samples.rda')
+e <- readRDS('E:/gis_data/MLRA/rda/prism-monthly-pet-samples.rds')
 
 # row-order is preserved, combine columns
-pet.prism.data <- data.frame(mlra=s$mlra, e.pet, stringsAsFactors = FALSE)
+pet.prism.data <- data.frame(mlra = s$mlra, e)
 # keep original names, broken by line above
-names(pet.prism.data) <- c('mlra', dimnames(e.pet)[[2]])
+names(pet.prism.data) <- c('mlra', names(e))
 
-save(pet.prism.data, file='E:/gis_data/MLRA/db/mlra-monthly-pet-data.rda')
+save(pet.prism.data, file = 'E:/gis_data/MLRA/db/mlra-monthly-pet-data.rda')
 rm(e.pet, pet.prism.data)
 gc(reset = TRUE)
 
 
 ## create table of MLRA code + monthly PPT (PRISM) stack
-load('E:/gis_data/MLRA/rda/prism-monthly-ppt-samples.rda')
+e <- readRDS('E:/gis_data/MLRA/rda/prism-monthly-ppt-samples.rds')
 
 # row-order is preserved, combine columns
-ppt.prism.data <- data.frame(mlra=s$mlra, e.ppt, stringsAsFactors = FALSE)
+ppt.prism.data <- data.frame(mlra = s$mlra, e)
 # keep original names, broken by line above
-names(ppt.prism.data) <- c('mlra', dimnames(e.ppt)[[2]])
+names(ppt.prism.data) <- c('mlra', names(e))
 
 save(ppt.prism.data, file='E:/gis_data/MLRA/db/mlra-monthly-ppt-data.rda')
 rm(e.ppt, ppt.prism.data)
@@ -122,18 +120,22 @@ gc(reset = TRUE)
 
 
 ## create table of MLRA code + geomorphon proportions
-load('E:/gis_data/MLRA/rda/geomorphons-samples.rda')
+e <- readRDS('E:/gis_data/MLRA/rda/geomorphons-samples.rds')
 
 # row-order is preserved: add to existing column
 s$geomorphons <- e
 # keep only DF
-s <- s@data
+s <- as.data.frame(s)
 
 # https://grass.osgeo.org/grass70/manuals/addons/r.geomorphon.html
-s$geomorphons <- factor(s$geomorphons, levels=1:10, labels = c('flat', 'summit', 'ridge', 'shoulder', 'spur', 'slope', 'hollow', 'footslope', 'valley', 'depression'))
+s$geomorphons <- factor(
+  s$geomorphons, 
+  levels = 1:10, 
+  labels = c('flat', 'summit', 'ridge', 'shoulder', 'spur', 'slope', 'hollow', 'footslope', 'valley', 'depression')
+)
 
 # tabulate and convert to proportions
-x <- xtabs(~ mlra + geomorphons, data=s)
+x <- xtabs(~ mlra + geomorphons, data = s)
 x <- sweep(x, MARGIN = 1, STATS = rowSums(x), FUN = '/')
 
 # conversion to data.frame results in long-format
@@ -146,13 +148,15 @@ gc(reset = TRUE)
 
 
 ## create table of MLRA code + NLCD proportions
-load('E:/gis_data/MLRA/rda/samples.rda')
-load('E:/gis_data/MLRA/rda/nlcd-samples.rda')
+# pre-made sampling points EPSG:5070
+# spatVector
+s <- readRDS('E:/gis_data/MLRA/rda/samples.rds')
+e <- readRDS('E:/gis_data/MLRA/rda/nlcd-samples.rds')
 
 # row-order is preserved: add to existing column
 s$nlcd <- e
 # keep only DF
-s <- s@data
+s <- as.data.frame(s)
 
 # These are from the NLCD 2011 metadata
 nlcd.leg <- structure(list(ID = c(0L, 11L, 12L, 21L, 22L, 23L, 24L, 31L, 
@@ -165,10 +169,10 @@ nlcd.leg <- structure(list(ID = c(0L, 11L, 12L, 21L, 22L, 23L, 24L, 31L,
             "Woody Wetlands", "Emergent Herbaceous Wetlands")), .Names = c("ID", "name"), row.names = c(NA, -21L), class = "data.frame")
 
 # set factor levels
-s$nlcd <- factor(s$nlcd, levels = nlcd.leg$ID, labels = nlcd.leg$name)
+s$nlcd <- factor(s$nlcd, levels = nlcd.leg$name)
 
 # tabulate and convert to proportions
-x <- xtabs(~ mlra + nlcd, data=s)
+x <- xtabs(~ mlra + nlcd, data = s)
 # rounding to remove "tiny" fractions -> simpler legend
 x <- round(sweep(x, MARGIN = 1, STATS = rowSums(x), FUN = '/'), 3)
 

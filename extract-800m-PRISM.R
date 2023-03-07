@@ -26,7 +26,7 @@ s <- project(s, 'EPSG:4296')
 # extract
 # ~ 1.97 seconds | 2021, WD
 # ~ 1.5 seconds | 2023
-system.time(e <- extract(rs, s))
+system.time(e <- extract(rs, s, ID = FALSE))
 
 # set better names
 names(e)<- c('Elevation (m)', 'Effective Precipitation (mm)', 'Frost-Free Days', 'Mean Annual Air Temperature (degrees C)', 'Mean Annual Precipitation (mm)', 'Growing Degree Days (degrees C)', 'Fraction of Annual PPT as Rain', 'Design Freeze Index (degrees C)')

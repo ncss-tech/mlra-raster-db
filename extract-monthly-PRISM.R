@@ -1,38 +1,36 @@
-library(raster)
-library(rgdal)
-library(sp)
-
-# pre-made sampling points
-load('E:/gis_data/MLRA/rda/samples.rda')
-
-## TODO: extract from rasters in memory as with standard prism stack
+library(terra)
 
 # monthly data
 
 # PPT (mm)
-ppt <- brick('E:/gis_data/prism/final_monthly_ppt_800m.tif')
+ppt <- rast('E:/gis_data/prism/final_monthly_ppt_800m.tif')
 names(ppt) <- paste('ppt.', 1:12, sep = '')
 
 # PET (mm)
-pet <- brick('E:/gis_data/prism/final_monthly_pet_800m.tif')
+pet <- rast('E:/gis_data/prism/final_monthly_pet_800m.tif')
 names(pet) <- paste('pet.', 1:12, sep = '')
 
-# work from memory
-# ~ 18-21 seconds | 2021, WD
-# ~ 18 seconds | 2022, WD exclusions
-system.time(ppt <- readAll(ppt))
-system.time(pet <- readAll(pet))
+
+# pre-made sampling points AEA
+# spatVector
+s <- readRDS('E:/gis_data/MLRA/rda/samples.rds')
+
+# back to GCS NAD83
+s <- project(s, 'EPSG:4296')
+
 
 # extract
 # ~ 1.9 seconds | 2021, WD
-system.time(e.ppt <- extract(ppt, s))
+# ~ 4.5 seconds | 2023, exclusions
+system.time(e.ppt <- extract(ppt, s, ID = FALSE))
 
 # ~ 1.9 seconds | 2021, WD
-system.time(e.pet <- extract(pet, s))
+# ~ 6.3 seconds | 2023, exclusions
+system.time(e.pet <- extract(pet, s, ID = FALSE))
 
 # save for later
-save(e.ppt, file='E:/gis_data/MLRA/rda/prism-monthly-ppt-samples.rda')
-save(e.pet, file='E:/gis_data/MLRA/rda/prism-monthly-pet-samples.rda')
+saveRDS(e.ppt, file = 'E:/gis_data/MLRA/rda/prism-monthly-ppt-samples.rds')
+saveRDS(e.pet, file = 'E:/gis_data/MLRA/rda/prism-monthly-pet-samples.rds')
 
 rm(s, e.ppt, e.pet, ppt, pet)
 gc(reset = TRUE)

@@ -13,7 +13,7 @@ s <- readRDS('E:/gis_data/MLRA/rda/samples.rds')
 # ~ 11 minutes | 2021, WD, raster package
 # ~ 20 seconds | 2021, WD, terra package
 # ~ 19 seconds | 2022, WD exclusions in place, terra 
-# ~ 15 seconds | 2023, VPN exclusions in place
+# ~ 15 seconds | 2023, exclusions
 # note that terra::extract() returns a data.frame
 system.time(e <- extract(r, s)$geomorphons)
 

@@ -1,14 +1,13 @@
-library(sp)
-library(rgdal)
+library(sf)
 library(sharpshootR)
 library(igraph)
 
 ## Note: weighting used by polygonAdjacency() is based on counts, more useful in the context of map units
 # ideas? https://cran.r-project.org/web/packages/spdep/vignettes/nb_igraph.html
 
-mlra <- readOGR(dsn='E:/gis_data/MLRA', layer='conus-mlra-v42', stringsAsFactors = FALSE)
+mlra <- read_sf('E:/gis_data/MLRA/MLRA_52-conus.shp')
 
-p <- polygonAdjacency(mlra, v='MLRARSYM')
+p <- polygonAdjacency(mlra, v = 'MLRARSYM')
 
 
 # max spanning tree
@@ -67,7 +66,7 @@ p$adjMat['18', ]
 
 
 ## TODO: save a reasonable representation of the adjacency, for now, an .Rda file
-save(p, file='rda-files/mlra-adjacency.rda')
+save(p, file = 'rda-files/mlra-adjacency.rda')
 
 
 ## join groups to spatial data
